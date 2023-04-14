@@ -13,7 +13,12 @@ import random
 def home(request):
     if request.user.is_authenticated: 
         return redirect('dashboard')
-    return render(request,"home/home.html", context={})    
+    return render(request,"home/home.html", context={})   
+ 
+def forgot(request):
+    if request.user.is_authenticated: 
+        return redirect('dashboard')
+    return render(request,"home/forgot_pass.html", context={})    
 
 def my_admin(request):
     url=settings.BASE_URL+"/admin"
@@ -186,3 +191,52 @@ def signin(request):
         
     else:
         return render(request,"home/signin.html")
+    
+def send_forgot_email(user,email):
+    myuser=User.objects.get(username=user.username)
+    try:
+        mycustomer=Customer.objects.get(user=myuser)
+    except:
+        try:
+            mycustomer=Customer.objects.get(user=myuser)
+        except:
+            print('no User')
+            
+    if myuser.is_active:
+        try:
+            myotp=myuser.username + generate_code(60)
+            mycustomer.otp_code=myotp
+            mycustomer.save()
+            url=settings.BASE_URL_EMAIL+'/change/password/'+myotp
+            email_subject='Password Changing Request In Resource Hub'
+            email_message='Click this link  to Change Your Password.\n'+'Link:- '+ url
+            SENDMAIL(email_subject,email_message,email)
+            return True
+        except:
+            return False
+
+def forgot_pass(request):
+    if request.method=='POST':
+        temp_email=request.POST.get('email')
+        
+        email=temp_email.lower()
+        myuser=User.objects.get(email=email)
+        if send_forgot_email(myuser,email):
+            messages.error(request, 'Success - Your Request for Forgot Password has been approved, You can Check your Email.')
+            return redirect('home')
+        else:
+            messages.error(request, 'Error - Server Error')
+            return redirect('home')
+        
+def activate_forgot_by_email(request,code):
+    try:
+        profile=Customer.objects.get(otp_code=code)
+        
+    except:
+        try:
+            profile=Customer.objects.get(otp_code=code)
+        except:
+            messages.error(request, 'Error - User Not Found Signin to get link again')
+            return redirect('home')
+    myuser=profile.user
+    return render(request,'home/changepassword.html',context={"data":myuser})

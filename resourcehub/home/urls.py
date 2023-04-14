@@ -10,4 +10,6 @@ urlpatterns = [
     path('signup/verify/<str:code>',views.activate_by_email,name="activate_email"),
     path('signout/', views.signout,name="signout"),
     path('signin/', views.signin,name="signin"),
+    path('forgotpassword/', views.forgot_pass,name="forgotpass"),
+    path('change/password/<str:code>/',views.activate_forgot_by_email,name="activate_forgot_pass"),
 ]
