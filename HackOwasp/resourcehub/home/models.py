@@ -41,6 +41,7 @@ class Draft(models.Model):
     subtitle=models.TextField(max_length=30,null=True,blank=True)
     description=models.TextField(max_length=200,null=True,blank=True)
     pub_date=models.DateField(null=True,blank=True)
+    published=models.BooleanField(default=False,null=True,blank=True)
 
     def __str__(self):
         return self.user.username+str('--')+str(self.pub_date)

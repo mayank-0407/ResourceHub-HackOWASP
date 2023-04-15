@@ -31,16 +31,14 @@ def my_admin(request):
 
 def dashboard(request):
     if request.user.is_authenticated:
+        todays_date = datetime.date.today()  
         if request.user.is_superuser:
             return redirect('admin')
         try:
-            
-            print('post created successfully')
-            messages.error(request, 'Draft Created Successfully')
-            return redirect('dashboard')
+            my_draft=Draft.objects.filter(pub_date=todays_date).values()
         except:
             print('unable to fetch post')
-        return render(request,"home/dashboard.html", context={})    
+        return render(request,"home/dashboard.html", context={'drafts' : my_draft})    
     return render(request,"home/home.html", context={})    
 
 def SENDMAIL(subject, message, email):
@@ -166,17 +164,13 @@ def signin(request):
             except:
                 messages.error(request, 'Error - No User found!')
                 return redirect('signin')  
-
-        # print(verify_user.email)
         if verify_user.is_active == False:
-            # print('hi')
             if send_activate_email(verify_user,verify_user.email):
                 messages.error(request, 'Your Email is not yet verified. So we have Sent Link to your email ,verify that to continue')
                 return redirect('home')  
         try:
             tempuser=User.objects.get(email=email).username                  
             user=authenticate(request,username=tempuser,password=password)
-            # print(user)
         except:
             try:
                 User.objects.get(username=email)
@@ -186,8 +180,7 @@ def signin(request):
             except:    
                 messages.error(request, 'Error - Entered Username or Email is Not in our records.')
                 return redirect('signin')
-        
-        # print(user)            
+                  
         if user == None: 
             messages.error(request, 'Error - No User Exists.')
             return redirect('signin')
@@ -199,7 +192,6 @@ def signin(request):
         else:
             messages.error(request, 'Error - You dont have permission to login.')
             return redirect('signin')
-            # return HttpResponse( 'You dont have staff permission')
         
     else:
         return render(request,"home/signin.html")
@@ -264,17 +256,14 @@ def create_post(request):
             try:
                 myuser=Customer.objects.get(user=request.user)                
             except:
-                print('no user')
                 messages.error(request, 'Error - User Not Found')
                 return redirect('dashboard')
 
             try:
-                Draft.objects.create(user=request.user,title=my_title,subtitle=my_subtitle,description=my_description,pub_date=todays_date)
-                print('post created successfully')
+                Draft.objects.create(user=request.user,title=my_title,subtitle=my_subtitle,description=my_description,pub_date=todays_date,published=True)
                 messages.error(request, 'Draft Created Successfully')
                 return redirect('dashboard')
             except:
-                print('Post error')
                 messages.error(request, 'Error - There was an error while creating the draft.')
                 return redirect('dashboard')
 
