@@ -57,20 +57,13 @@
         <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'signout' %}">Logout</a>
         {% else %}
         <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'signin' %}">Signin</a>
-        {% comment %} <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'signin' %}">Signin as Vounteer</a> {% endcomment %}
+        <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'signin' %}">Signin as Vounteer</a>
         {% endif %}
         <a class="py-2 text-dark text-decoration-none" href="{% url 'tos' %}">Support</a>
       </nav>
     </div>
-
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <h1 class="display-4 fw-normal">About</h1>
-      <p class="fs-5 text-muted">By subscribing to a paid plan, you will be supporting the maintenance and improvement of our platform, allowing us to better serve the needs of both students and volunteers.
-        Remember, you can always start with our Free plan and upgrade at any time to access more features and benefits!    
-      </p>
-    </div>
-    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <h1 class="display-4 fw-normal">SignUp Features</h1>
+      <h1 class="display-4 fw-normal">Pricing Plans</h1>
       <p class="fs-5 text-muted">By subscribing to a paid plan, you will be supporting the maintenance and improvement of our platform, allowing us to better serve the needs of both students and volunteers.
         Remember, you can always start with our Free plan and upgrade at any time to access more features and benefits!    
       </p>
@@ -78,11 +71,67 @@
   </header>
 
   <main>
-    <a href="{% url 'signup' %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up Now</button></a>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Free</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title justify-content-center">₹0<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list mt-3 mb-4">
+              <li>Post your needs and connect with volunteers</li>
+              <li>Basic matching algorithm to find suitable volunteers</li>
+              
+            </ul>
+            <a href="{% url 'signup' %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button></a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal" >Basic</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title justify-content-center"   >₹100<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list mt-3 mb-4">
+              <li>All Free features
+              </li>
+              <li>Priority matching algorithm for faster connections
+              </li>
+              <li>Detailed volunteer profiles with skills and activity history</li>
+              <!-- <li>Help center access</li> -->
+            </ul>
+            <a href="{% url 'signup' %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Get started</button></a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Premium</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">₹200<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list mt-3 mb-4">
+              <li>All Basic features</li>
+              <li>Premium matching algorithm for the best possible connections</li>
+              <li>Access to exclusive volunteer network</li>
+              <li>Premium customer support
+              </li>
+            </ul>
+            <a href="{% url 'signup' %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Get Premium</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
-  <!--  footer-->
-  </div>
+</div>
+
+
+
 </body>
 <footer class="text-center text-lg-start bg-light text-muted">
   <!-- Section: Social media -->
@@ -144,7 +193,7 @@
         Useful links
       </h6>
       <p>
-        <a href="{% url 'pricing' %}" class="text-reset">Pricing</a>
+        <a href="#!" class="text-reset">Pricing</a>
       </p>
       <p>
         <a href="{% url 'view_profile' %}" class="text-reset">Settings</a>

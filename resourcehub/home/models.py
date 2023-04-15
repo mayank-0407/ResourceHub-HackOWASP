@@ -40,9 +40,9 @@ class Customer(models.Model):
 class Draft(models.Model):
 
     user=models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True)
-    title=models.TextField(max_length=40,null=True)
-    subtitle=models.TextField(max_length=30,null=True,blank=True)
-    description=models.TextField(max_length=200,null=True,blank=True)
+    title=models.TextField(max_length=40000,null=True)
+    subtitle=models.TextField(max_length=3000,null=True,blank=True)
+    description=models.TextField(max_length=80000,null=True,blank=True)
     pub_date=models.DateField(null=True,blank=True)
     published=models.BooleanField(default=False,null=True,blank=True)
 

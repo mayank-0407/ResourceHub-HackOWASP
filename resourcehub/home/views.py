@@ -12,7 +12,13 @@ import random
 
 # Create your views here.
 def temp(request):
-    return render(request,"home/temp.html", context={})   
+    return render(request,"home/temp.html", context={})
+   
+def tos(request):
+    return render(request,"home/tos.html", context={})   
+
+def pricing(request):
+    return render(request,"home/pricing.html", context={})   
 
 def home(request):
     if request.user.is_authenticated: 
@@ -35,7 +41,7 @@ def dashboard(request):
         if request.user.is_superuser:
             return redirect('admin')
         try:
-            my_draft=Draft.objects.filter(pub_date=todays_date).values()
+            my_draft=Draft.objects.filter(published=True).values()
         except:
             print('unable to fetch post')
         
