@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Customer)
 admin.site.register(plan)
 admin.site.register(userType)
+admin.site.register(Draft)

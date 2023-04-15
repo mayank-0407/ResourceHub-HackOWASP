@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render, HttpResponse,redirect
 from .models import *
 from django.contrib.auth.models import User
@@ -10,6 +11,9 @@ import math
 import random
 
 # Create your views here.
+def temp(request):
+    return render(request,"home/temp.html", context={})   
+
 def home(request):
     if request.user.is_authenticated: 
         return redirect('dashboard')
@@ -29,7 +33,15 @@ def dashboard(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
             return redirect('admin')
-    return render(request,"home/dashboard.html", context={})    
+        try:
+            
+            print('post created successfully')
+            messages.error(request, 'Draft Created Successfully')
+            return redirect('dashboard')
+        except:
+            print('unable to fetch post')
+        return render(request,"home/dashboard.html", context={})    
+    return render(request,"home/home.html", context={})    
 
 def SENDMAIL(subject, message, email):
     try:
@@ -240,3 +252,31 @@ def activate_forgot_by_email(request,code):
             return redirect('home')
     myuser=profile.user
     return render(request,'home/changepassword.html',context={"data":myuser})
+
+def create_post(request):
+    if request.user.is_authenticated: 
+        if request.method=="POST":
+            my_title=request.POST.get('title')
+            my_subtitle=request.POST.get('subtitle')
+            my_description=request.POST.get('description')
+
+            todays_date = datetime.date.today()  
+            try:
+                myuser=Customer.objects.get(user=request.user)                
+            except:
+                print('no user')
+                messages.error(request, 'Error - User Not Found')
+                return redirect('dashboard')
+
+            try:
+                Draft.objects.create(user=request.user,title=my_title,subtitle=my_subtitle,description=my_description,pub_date=todays_date)
+                print('post created successfully')
+                messages.error(request, 'Draft Created Successfully')
+                return redirect('dashboard')
+            except:
+                print('Post error')
+                messages.error(request, 'Error - There was an error while creating the draft.')
+                return redirect('dashboard')
+
+        return render(request,"home/create_post.html", context={})   
+    return render(request,"home/home.html", context={})   

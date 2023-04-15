@@ -57,14 +57,23 @@
         <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'signout' %}">Logout</a>
         {% else %}
         <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'signin' %}">Signin</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'signin' %}">Signin as Vounteer</a>
         {% endif %}
         <a class="py-2 text-dark text-decoration-none" href="#">Support</a>
       </nav>
     </div>
 
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <h1 class="display-4 fw-normal">Pricing</h1>
-      <p class="fs-5 text-muted">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
+      <h1 class="display-4 fw-normal">About</h1>
+      <p class="fs-5 text-muted">By subscribing to a paid plan, you will be supporting the maintenance and improvement of our platform, allowing us to better serve the needs of both students and volunteers.
+        Remember, you can always start with our Free plan and upgrade at any time to access more features and benefits!    
+      </p>
+    </div>
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+      <h1 class="display-4 fw-normal">Pricing Plans</h1>
+      <p class="fs-5 text-muted">By subscribing to a paid plan, you will be supporting the maintenance and improvement of our platform, allowing us to better serve the needs of both students and volunteers.
+        Remember, you can always start with our Free plan and upgrade at any time to access more features and benefits!    
+      </p>
     </div>
   </header>
 
@@ -76,12 +85,11 @@
             <h4 class="my-0 fw-normal">Free</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
-            <ul class="list-unstyled mt-3 mb-4">
-              <li>10 users included</li>
-              <li>2 GB of storage</li>
-              <li>Email support</li>
-              <li>Help center access</li>
+            <h1 class="card-title pricing-card-title justify-content-center">₹0<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list mt-3 mb-4">
+              <li>Post your needs and connect with volunteers</li>
+              <li>Basic matching algorithm to find suitable volunteers</li>
+              
             </ul>
             <a href="{% url 'signup' %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button></a>
           </div>
@@ -90,15 +98,17 @@
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
           <div class="card-header py-3">
-            <h4 class="my-0 fw-normal">Pro</h4>
+            <h4 class="my-0 fw-normal" >Basic</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1>
-            <ul class="list-unstyled mt-3 mb-4">
-              <li>20 users included</li>
-              <li>10 GB of storage</li>
-              <li>Priority email support</li>
-              <li>Help center access</li>
+            <h1 class="card-title pricing-card-title justify-content-center"   >₹100<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list mt-3 mb-4">
+              <li>All Free features
+              </li>
+              <li>Priority matching algorithm for faster connections
+              </li>
+              <li>Detailed volunteer profiles with skills and activity history</li>
+              <!-- <li>Help center access</li> -->
             </ul>
             <a href="{% url 'signup' %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Get started</button></a>
           </div>
@@ -107,76 +117,21 @@
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
           <div class="card-header py-3">
-            <h4 class="my-0 fw-normal">Enterprise</h4>
+            <h4 class="my-0 fw-normal">Premium</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$29<small class="text-muted fw-light">/mo</small></h1>
-            <ul class="list-unstyled mt-3 mb-4">
-              <li>30 users included</li>
-              <li>15 GB of storage</li>
-              <li>Phone and email support</li>
-              <li>Help center access</li>
+            <h1 class="card-title pricing-card-title">₹200<small class="text-muted fw-light">/mo</small></h1>
+            <ul class="list mt-3 mb-4">
+              <li>All Basic features</li>
+              <li>Premium matching algorithm for the best possible connections</li>
+              <li>Access to exclusive volunteer network</li>
+              <li>Premium customer support
+              </li>
             </ul>
-            <a href="{% url 'signup' %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Get Enterprise</button></a>
+            <a href="{% url 'signup' %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Get Premium</button></a>
           </div>
         </div>
       </div>
-    </div>
-
-    <h2 class="display-6 text-center mb-4">Compare plans</h2>
-
-    <div class="table-responsive">
-      <table class="table text-center">
-        <thead>
-          <tr>
-            <th style="width: 34%;"></th>
-            <th style="width: 22%;">Free</th>
-            <th style="width: 22%;">Pro</th>
-            <th style="width: 22%;">Enterprise</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row" class="text-start">Public</th>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Private</th>
-            <td></td>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <th scope="row" class="text-start">Permissions</th>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Sharing</th>
-            <td></td>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Unlimited members</th>
-            <td></td>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-start">Extra security</th>
-            <td></td>
-            <td></td>
-            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </main>
 
@@ -184,26 +139,26 @@
     <div class="row">
       <div class="col-12 col-md">
         <img class="mb-2" src="../assets/brand/bootstrap-logo.svg" alt="" width="24" height="19">
-        <small class="d-block mb-3 text-muted">&copy; 2017–2021</small>
+        <small class="d-block mb-3 text-muted">&copy; 2023-present</small>
       </div>
       <div class="col-6 col-md">
         <h5>Features</h5>
         <ul class="list-unstyled text-small">
-          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Cool stuff</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Random feature</a></li>
+          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Volunteers</a></li>
+          <!-- <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Random feature</a></li> -->
           <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Team feature</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Stuff for developers</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Another one</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Last time</a></li>
+          <!-- <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Stuff for developers</a></li> -->
+          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Social Work</a></li>
+          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">NGO</a></li>
         </ul>
       </div>
       <div class="col-6 col-md">
-        <h5>Resources</h5>
+        <h5>Payment Options</h5>
         <ul class="list-unstyled text-small">
-          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Resource</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Resource name</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Another resource</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Final resource</a></li>
+          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">UPI</a></li>
+          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Net-banking</a></li>
+          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Wallets</a></li>
+          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Cards</a></li>
         </ul>
       </div>
       <div class="col-6 col-md">
@@ -213,6 +168,7 @@
           <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Locations</a></li>
           <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Privacy</a></li>
           <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Terms</a></li>
+          <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Contact Information</a></li>
         </ul>
       </div>
     </div>

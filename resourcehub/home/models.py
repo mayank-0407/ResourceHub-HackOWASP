@@ -33,3 +33,14 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+class Draft(models.Model):
+
+    user=models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True)
+    title=models.TextField(max_length=40,null=True)
+    subtitle=models.TextField(max_length=30,null=True,blank=True)
+    description=models.TextField(max_length=200,null=True,blank=True)
+    pub_date=models.DateField(null=True,blank=True)
+
+    def __str__(self):
+        return self.user.username+str('--')+str(self.pub_date)
