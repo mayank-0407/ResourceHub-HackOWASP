@@ -141,6 +141,11 @@
             <div class="modal-body">
               <form action="{% url 'forgotpass' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
+                  <h5 style="color: red; font-size:16px">
+                    {% comment %} {% for message in messages %} {% endcomment %}
+                      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>hi{{ message }}</li>
+                    {% comment %} {% endfor %} {% endcomment %}
+                  </h5>
                   <div class="form-floating border-3 border-primary">
                     <input type="email" name="email" class="form-control" id="floatingPassword" placeholder="Enter Your Email">
                     <label for="email">Your Email</label>

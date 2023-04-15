@@ -48,7 +48,7 @@
                   <!-- 2 column grid layout with text inputs for the first and last names -->
                   <h5 style="color: red; font-size:16px">
                     {% for message in messages %}
-                      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>hi{{ message }}</li>
                     {% endfor %}
                   </h5>
                   <div class="row">
