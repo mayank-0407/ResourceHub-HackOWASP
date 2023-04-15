@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'profile/style.css'%}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+        <div class="my-4">
+            <div class="row mt-5 align-items-center">
+                <div class="col-md-3 text-center mb-5">
+                    <div class="avatar avatar-xl">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="..." class="avatar-img rounded-circle" />
+                    </div>
+                </div>
+                {% for my_user in this_user %}
+                <div class="col">
+                    <div class="row align-items-center">
+                        <div class="col-md-7">
+                            <h4 class="mb-1">{{my_user.full_name}}</h4>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-7">
+                            <p class="text-muted">
+                                {% comment %} <li>Front-end developer</li>
+                                <li>5 years of experience</li>
+                                <li>have experience in MERN stack</li>
+                                <li>professional in python</li> {% endcomment %}
+                            </p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <hr class="my-4" />
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+        <form action="{% url 'view_profile' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                        <label for="full_name">Fullname</label>
+                        <input type="text" id="firstname" name="full_name" for="full_name" value={{my_user.full_name}} class="form-control" placeholder="Brown" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" name="email" for="email" value={{my_user.temp_email}} id="inputEmail4" placeholder="abc@gmail.com" />
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">Age</label>
+                    <input type="number" class="form-control" name="age" for="age" value={{my_user.age}} id="inputEmail4" placeholder=".." />
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">College</label>
+                    <input type="text" class="form-control" name="college" for="college" value={{my_user.college}} id="inputEmail4" placeholder=".." />
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">Skills</label>
+                    <input type="text" class="form-control" name="skills" for="skills" value={{my_user.skills}} id="inputEmail4" placeholder=".." />
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">Experience</label>
+                    <input type="text" class="form-control" name="experience" for="experience" value={{my_user.experience}} id="inputEmail4" placeholder=".." />
+                </div>
+                <hr class="my-4" />
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h4 for="inputPassword4 title">Change Password</h4>
+                        <div class="form-group">
+                            <label for="inputPassword4">Old Password</label>
+                            <input type="password" name="old_pass" for="old_pass" class="form-control" id="inputPassword5" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword5">New Password</label>
+                            <input type="password" name="new_pass" for="new_pass" class="form-control" id="inputPassword5" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword6">Confirm Password</label>
+                            <input type="password" class="form-control" name="cnew_pass" for="cnew_pass" id="inputPassword6" />
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" class="" name="check_pass" for="check_pass" id="inputPassword6"/>
+                            <label for="inputPassword6">Did the password was changed?</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-2">Password requirements</p>
+                        <p class="small text-muted mb-2">To create a new password, you have to meet all of the following requirements:</p>
+                        <ul class="small text-muted pl-4 mb-0">
+                            <li>Make Sure to Mark the Checkbox if you Change the password. otherwise password will remain same</li>
+                            <li>Minimum 8 character</li>
+                            <li>At least one special character</li>
+                            <li>At least one number</li>
+                            <li>Can’t be the same as a previous password</li>
+                        </ul>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Change</button>
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</body>
+</html>

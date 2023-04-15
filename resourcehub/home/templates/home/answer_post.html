@@ -8,6 +8,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
     <title>add-question-page</title>
+	<link rel="icon" href="{% static 'logo/Resource.png' %}" type="image/icon type">
 <link rel="stylesheet" type="text/css" href="{% static 'answer_post/style.css'%}">
 <!-- Font Awesome -->
 <link
@@ -102,9 +103,9 @@
 <header class="p-3 mb-3 border-bottom">
   <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-decoration-none">
-          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-        </a>
+        <a href="{% url 'home' %}" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+			<img class="mb-2" src="{% static 'logo/Resource.png' %}" alt="resourcehub" width="40" height="32">
+		  </a>
         
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="#" class="nav-link px-2" style="color: black;"> Problem Page</a></li>
@@ -114,19 +115,17 @@
 			<input type="search" class="form-control" placeholder="Search volunteers..." aria-label="Search">
         </form> -->
         <ul class="nav col-12 col-lg-auto me-lg-2 mb-10 justify-content-center mb-md-0">
-			<li><a href="#" class="nav-link px-2" style="color: black;"> Home</a></li>
-			<li><a href="#" class="nav-link px-2" style="color: black;"> Subscription</a></li>
-			<li><a href="#" class="nav-link px-2" style="color: black;"> Dashboard</a></li>            
-			<li><a href="#" class="nav-link px-2" style="color: black;"> Volunteer</a></li>            
-			<li><a href="#" class="nav-link px-2" style="color: black;"> Problem</a></li>            
+			<li><a href="{% url 'dashboard' %}" class="nav-link px-2" style="color: black;"> Dashboard</a></li>
+			<li><a href="#" class="nav-link px-2" style="color: black;"> Subscription</a></li>        
+			<li><a href="{% url 'view_volunteer_profiles' %}" class="nav-link px-2" style="color: black;"> Volunteer</a></li>     
 
 
           </ul>
         <div class="dropdown text-end">
             
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-          </a>
+			<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+				<img class="mb-2" src="{% static 'logo/signin.png' %}" alt="resourcehub" width="32" height="32" class="rounded-circle">
+			  </a>
 
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="#">My Problems</a></li>
@@ -144,7 +143,7 @@
       <form class="questionaire" action="{% url 'render_answer_post' que_id=1 %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 		<input type="hidden" name="Unique_id_answer" value="{{my_draft.id}}" readonly> 
-		{% for my_post in thispost %}
+			{% for my_post in thispost %}
 				<h2>The question</h2>
 				<input type="hidden" name="Unique_id_answer" value="{{my_post.id}}" readonly> 
 				<label for="question-title">Title:-{{my_post.title}}</label>
@@ -281,6 +280,7 @@
 		</div>
 		<!-- Copyright -->
 	  </footer>
+<script src="{% static 'bootstrap.bundle.min.js' %}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 </body>
 </html>

@@ -17,4 +17,6 @@ urlpatterns = [
     path('dashboard/answer/post/<str:que_id>', views.render_answer_post,name="render_answer_post"),
     path('dashboard/answer/post/<str:que_id>/review', views.answer_of_post,name="answer_post"),
     path('dashboard/view_fullque/<str:que_id>', views.view_full_que,name="view_full_que"),
+    path('dashboard/volunteer/profiles', views.view_volunteers,name="view_volunteer_profiles"),
+    path('dashboard/profile', views.view_profile,name="view_profile"),
 ]

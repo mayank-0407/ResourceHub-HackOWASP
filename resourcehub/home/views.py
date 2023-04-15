@@ -38,7 +38,12 @@ def dashboard(request):
             my_draft=Draft.objects.filter(pub_date=todays_date).values()
         except:
             print('unable to fetch post')
-        return render(request,"home/dashboard.html", context={'drafts' : my_draft})    
+        
+        try:
+            my_customer=Customer.objects.filter(user=request.user)
+        except:
+            print('unable to fetch users')
+        return render(request,"home/dashboard.html", context={'drafts' : my_draft,'permission':my_customer})    
     return render(request,"home/home.html", context={})    
 
 def SENDMAIL(subject, message, email):
@@ -84,6 +89,7 @@ def signup(request):
         temp_email=request.POST.get('email')
         pass1=request.POST.get('pass1')
         pass2=request.POST.get('pass2')
+        acc_type=request.POST.get('acc_type')
 
         email=temp_email.lower()
         if not pass1==pass2:
@@ -97,13 +103,21 @@ def signup(request):
         except:
             pass
         
-        myuser=User.objects.create_user(username=email,first_name=first_name,last_name=last_name,email=email)
+        try:
+            my_type=userType.objects.get(code=acc_type)
+        except:
+            messages.error(request, 'Error - Account Type was Not found.')
+            return redirect('signup')
+
+        myuser=User.objects.create_user(username=email,first_name=first_name,last_name=last_name,
+                                        email=email)
         myuser.is_active=False
         myuser.set_password(pass1)
         myuser.save()
-
+        fullname_temp=str(first_name+last_name)
         try:
-            Customer.objects.create(user=myuser,is_verified=False)
+            Customer.objects.create(user=myuser,is_verified=False,user_Type=my_type,
+                                    full_name=fullname_temp,temp_email=email)
         except Exception as e:
             User.objects.get(id=myuser.id).delete()
             return HttpResponse(str(e))
@@ -119,27 +133,23 @@ def signup(request):
 
 def activate_by_email(request,code):
     try:
-        try:
-            profile=Customer.objects.get(otp_code=code)
-        except:
-            print('User Not Found')
-        if profile.user.is_active:
-            return render(request,'home/email.html')
-        myuser=profile.user
-        myuser.is_active=True
-        myuser.save()
-        email=myuser.email
-        try:
-            email_message='Account Verified In ResourceHub'
-            email_subject='Your Account at ResourceHub has been created Verified Visit our page to avail amazing experience'
-            SENDMAIL(email_message,email_subject,email)
-        except Exception as e:
-            print("Can't send email\n", str(e))
-
-        return render(request,'home/email.html')
+        profile=Customer.objects.get(otp_code=code)
     except:
-        messages.error(request, 'Error - User Not Found Signin to get link again')
-        return redirect('home')    
+        print('User Not Found')
+    if profile.user.is_active:
+        return render(request,'home/email.html')
+    myuser=profile.user
+    myuser.is_active=True
+    myuser.save()
+    email=myuser.email
+    try:
+        email_message='Account Verified In ResourceHub'
+        email_subject='Your Account at ResourceHub has been created Verified Visit our page to avail amazing experience'
+        SENDMAIL(email_message,email_subject,email)
+    except Exception as e:
+        print("Can't send email\n", str(e))
+
+    return render(request,'home/email.html')
 
 def signout(request):
     logout(request)
@@ -275,14 +285,10 @@ def answer_of_post(request):
         if request.method=="POST":
             que_id=request.POST.get('Unique_id_answer')
             answer_post=request.POST.get('send_ans')
-            print(que_id)
 
             try:
                 my_post=Draft.objects.get(pk=que_id)
-                print(my_post)
-                print(answer_post)
             except:
-                print('no post')
                 messages.error(request, 'Error - There was an error while fetching the Question.')
                 return redirect('dashboard')
             try:
@@ -290,7 +296,6 @@ def answer_of_post(request):
                 messages.success(request, 'Answer posted Successfully.')
                 return redirect('dashboard')
             except:
-                print('unable to answer')
                 messages.error(request, 'Error - There was an error while Answering the Question.')
                 return redirect('dashboard')
         return redirect('render_answer_post')
@@ -301,14 +306,10 @@ def render_answer_post(request,que_id):
         if request.method=="POST":
             que_id=request.POST.get('Unique_id_answer')
             answer_post=request.POST.get('send_ans')
-            print(que_id)
 
             try:
                 my_post=Draft.objects.get(pk=que_id)
-                print(my_post)
-                print(answer_post)
             except:
-                print('no post')
                 messages.error(request, 'Error - There was an error while fetching the Question.')
                 return redirect('dashboard')
             try:
@@ -316,7 +317,6 @@ def render_answer_post(request,que_id):
                 messages.success(request, 'Answer posted Successfully.')
                 return redirect('dashboard')
             except:
-                print('unable to answer')
                 messages.error(request, 'Error - There was an error while Answering the Question.')
                 return redirect('dashboard')
         my_post = Draft.objects.filter(pk=que_id)
@@ -326,5 +326,104 @@ def render_answer_post(request,que_id):
 def view_full_que(request,que_id):
     if request.user.is_authenticated: 
         my_post = Draft.objects.filter(pk=que_id)
-        return render(request,"home/view_fullque.html", context={"thispost":my_post})
-    return render(request,"home/dashboard.html", context={})   
+        my_review = review.objects.filter(this_draft=my_post[0])
+        return render(request,"home/view_fullque.html", context={"thispost":my_post,"thisreview":my_review})
+    return render(request,"home/home.html", context={})   
+
+def view_volunteers(request):
+    if request.user.is_authenticated: 
+        try:
+            volunteer_type = userType.objects.get(code=settings.USER_VOLUNTEER_CODE)
+        except:
+            print('Unable to fetch volunteers')
+        all_volunteers = Customer.objects.filter(user_Type=volunteer_type).values()
+        return render(request,"home/view_allvolunteers.html", context={"volunteer":all_volunteers})   
+    return render(request,"home/home.html", context={})   
+
+def view_profile(request):
+    if request.user.is_authenticated: 
+        if request.method=="POST":
+            full_name=request.POST.get('full_name')
+            temp_email=request.POST.get('email')
+            this_age=request.POST.get('age')
+            this_college=request.POST.get('college')
+            this_skills=request.POST.get('skills')
+            this_experience=request.POST.get('experience')
+            old_pass=request.POST.get('old_pass')
+            new_pass=request.POST.get('new_pass')
+            cnew_pass=request.POST.get('cnew_pass')
+            check_passchange=request.POST.get('check_pass')
+
+            verify_email=False   #check to send email
+            email=temp_email.lower()
+            if email == request.user.email:
+                pass
+            else:
+                verify_email=True 
+
+            name=full_name.split("  ")
+
+            try:
+                myuser=User.objects.get(email=request.user.email)
+                profile=Customer.objects.get(user=myuser)
+            except:
+                messages.error(request, 'Error - Internal Error.')
+                return redirect('view_profile')
+            myuser.username=email
+            myuser.first_name=name[0]
+            try:
+                myuser.last_name=name[1]
+            except:
+                myuser.last_name=name[0]
+            myuser.save()
+            profile.full_name=full_name
+            profile.temp_email=email
+            profile.age=this_age
+            profile.college=this_college
+            profile.skills=this_skills
+            profile.experience=this_experience
+            profile.save()
+            if verify_email:
+                myuser.is_active=False
+                myuser.email=email
+                myuser.save()
+                logout(request)
+                if send_activate_email(myuser,email):
+                    messages.error(request, 'Success - Verification link has been sent to your email verify that.')
+                    return redirect('home')
+            elif check_passchange:
+                myuser=User.objects.get(email=request.user.email)
+                profile=Customer.objects.get(user=myuser)
+                try:
+                    tempuser=User.objects.get(email=email).username                  
+                    user=authenticate(request,username=tempuser,password=password)
+                except:
+                    try:
+                        User.objects.get(username=email)
+                        
+                        user=authenticate(request,username=email,password=password)
+                        
+                    except:    
+                        messages.error(request, 'Error - Entered Passowrd is incorrect.')
+                        return redirect('view_profile')
+                if not new_pass==cnew_pass:
+                    messages.error(request, 'Error - Passwords do not match')
+                    return redirect('view_profile')
+                myuser.set_password(new_pass)
+                myuser.save()
+                messages.error(request, 'Success - Profile Updated Successfully')
+                return redirect('view_profile')
+
+            else:
+                messages.error(request, 'Success - Profile Update SuccessFully.')
+                return redirect('view_profile')
+            
+
+
+
+        try:
+            my_user = Customer.objects.filter(user=request.user)
+        except:
+            print('Unable to fetch user')
+        return render(request,"home/profile.html", context={"this_user":my_user})   
+    return render(request,"home/home.html", context={})   

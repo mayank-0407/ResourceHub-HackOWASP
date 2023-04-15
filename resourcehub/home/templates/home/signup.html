@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ResourceHub</title>
+    <link rel="icon" href="{% static 'logo/Resource.png' %}" type="image/icon type">
     <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     rel="stylesheet"
@@ -29,20 +31,22 @@
         <div class="row gx-lg-5 align-items-center">
           <div class="col-lg-6 mb-5 mb-lg-0">
             <h1 class="my-5 display-3 fw-bold ls-tight">
-              The best offer <br />
-              <span class="text-primary">for your business</span>
+              Resource
+              <span class="text-primary">Hub</span>
             </h1>
             <p style="color: hsl(217, 10%, 50.8%)">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-              quibusdam tempora at cupiditate quis eum maiores libero
-              veritatis? Dicta facilis sint aliquid ipsum atque?
+              <p>Our website is dedicated to providing a platform for users to ask and answer questions related to a variety of topics. Whether you're a student, a professional, or just someone looking to learn something new, our community is here to help.</p>
+              <p>We believe that sharing knowledge and helping others is an important part of personal growth and development. By providing a space for users to connect with one another and exchange information, we hope to promote learning and encourage curiosity.</p>
+              <p>Our team is made up of passionate individuals who are committed to making this platform the best it can be. We are constantly working to improve our website and provide the best user experience possible.</p>
             </p>
           </div>
   
           <div class="col-lg-6 mb-5 mb-lg-0">
             <div class="card">
               <div class="card-body py-5 px-md-5">
+                <h1 class=" ls-tight text-dark">
+                  Create A New Account
+                </h1>
                 <form action="./" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <!-- 2 column grid layout with text inputs for the first and last names -->
@@ -51,11 +55,12 @@
                       <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>hi{{ message }}</li>
                     {% endfor %}
                   </h5>
+                  <input type="hidden" name="Unique_id_answer" value="{{signupcode}}" readonly>
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
                         <input type="text" for="first_name" name="first_name" id="first_name" class="form-control" required/>
-                        <label class="form-label" for="first_name">First name</label>
+                        <label class="form-label" for="first_name">First name - {{signupcode}}</label>
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
@@ -83,14 +88,23 @@
                     <input type="password" for="confirm_pass" name="pass2"  id="password" class="form-control" required/>
                     <label class="form-label" for="confirm_pass">Password</label>
                   </div>
-  
-                  <!-- Checkbox -->
+                  <!--account type-->
                   <div class="form-check d-flex justify-content-center mb-4">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked required/>
-                    <label class="form-check-label" for="form2Example33">
-                      Subscribe to our newsletter
-                    </label>
+                    <div class="d-flex justify-content-left">
+                      <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked required/>
+                      <label class="form-check-label" for="form2Example33">
+                        Subscribe to our newsletter  
+                      </label>
+                    </div>
+                    <div class="dropdown d-flex mx-3">
+                      <select class="form-select" aria-label="Default select example" name="acc_type" required>
+                        <option selected>Account Type</option>
+                        <option value="121">Student</option>
+                        <option value="131">Volunteer</option>
+                      </select>
+                    </div>
                   </div>
+                  <!-- Checkbox -->
                   
                   <!-- Submit button -->
                   <button type="submit" class="btn btn-primary btn-block mb-4">
@@ -132,9 +146,127 @@
   </section>
   <!-- Section: Design Block -->
   <!-- MDB -->
-<script
-type="text/javascript"
-src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
 ></script>
+<script type="text/javascript" src="{% static 'bootstrap.bundle.min.js' %}"></script>
 </body>
+<!--  footer-->
+<footer class="text-center text-lg-start bg-light text-muted">
+  <!-- Section: Social media -->
+  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    <!-- Left -->
+    <div class="me-5 d-none d-lg-block">
+    <span>Get connected with us on social networks:</span>
+    </div>
+    <!-- Left -->
+  
+    <!-- Right -->
+    <div>
+    <a href="" class="me-4 text-reset">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="" class="me-4 text-reset">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a href="" class="me-4 text-reset">
+      <i class="fab fa-google"></i>
+    </a>
+    <a href="" class="me-4 text-reset">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="" class="me-4 text-reset">
+      <i class="fab fa-linkedin"></i>
+    </a>
+    <a href="" class="me-4 text-reset">
+      <i class="fab fa-github"></i>
+    </a>
+    </div>
+    <!-- Right -->
+  </section>
+  <!-- Section: Social media -->
+  
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+    <!-- Grid row -->
+    <div class="row mt-3">
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+      <!-- Content -->
+      <h6 class="text-uppercase fw-bold mb-4">
+        <i class="fas fa-gem me-3"></i>Resource Hub
+      </h6>
+      <p>
+        Here you can get soultions to your problems.
+      </p>
+      </div>
+      <!-- Grid column -->
+  
+      <!-- Grid column -->
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+      <!-- Links -->
+      <h6 class="text-uppercase fw-bold mb-4">
+        Products
+      </h6>
+      <p>
+        <a href="#!" class="text-reset">Angular</a>
+      </p>
+      <p>
+        <a href="#!" class="text-reset">React</a>
+      </p>
+      <p>
+        <a href="#!" class="text-reset">Vue</a>
+      </p>
+      <p>
+        <a href="#!" class="text-reset">Laravel</a>
+      </p>
+      </div>
+      <!-- Grid column -->
+  
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+      <!-- Links -->
+      <h6 class="text-uppercase fw-bold mb-4">
+        Useful links
+      </h6>
+      <p>
+        <a href="#!" class="text-reset">Pricing</a>
+      </p>
+      <p>
+        <a href="#!" class="text-reset">Settings</a>
+      </p>
+      <p>
+        <a href="#!" class="text-reset">Orders</a>
+      </p>
+      <p>
+        <a href="#!" class="text-reset">Help</a>
+      </p>
+      </div>
+      <!-- Grid column -->
+  
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+      <!-- Links -->
+      <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+      <p><i class="fas fa-home me-3"></i> Patiala, India</p>
+      <p>
+        <i class="fas fa-envelope me-3"></i>
+        dev.codebreakers@gmail.com
+      </p>
+      
+      </div>
+      <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+  
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2023 Copyright:
+    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">CodeBreakers</a>
+  </div>
+  <!-- Copyright -->
+</footer>
 </html>
