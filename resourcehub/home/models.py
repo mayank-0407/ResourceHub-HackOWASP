@@ -45,3 +45,12 @@ class Draft(models.Model):
 
     def __str__(self):
         return self.user.username+str('--')+str(self.pub_date)
+    
+class review(models.Model):
+
+    this_draft=models.ForeignKey(Draft, on_delete=models.SET_NULL,null=True,blank=True)
+    this_user=models.ForeignKey(User, on_delete=models.SET_NULL,null=True,blank=True)
+    reply=models.TextField(max_length=300,blank=True, null=True)
+
+    def __str__(self):
+        return self.this_user.name + str('- reply to - ')+ self.this_draft.user.name
