@@ -48,9 +48,9 @@ class Draft(models.Model):
     
 class review(models.Model):
 
-    this_draft=models.ForeignKey(Draft, on_delete=models.SET_NULL,null=True,blank=True)
-    this_user=models.ForeignKey(User, on_delete=models.SET_NULL,null=True,blank=True)
+    this_draft=models.ForeignKey(Draft, on_delete=models.CASCADE,null=True,blank=True)
+    this_user=models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
     reply=models.TextField(max_length=300,blank=True, null=True)
 
     def __str__(self):
-        return self.this_user.name + str('- reply to - ')+ self.this_draft.user.name
+        return self.this_user.username + str('- replied - ')

@@ -269,3 +269,62 @@ def create_post(request):
 
         return render(request,"home/create_post.html", context={})   
     return render(request,"home/home.html", context={})   
+
+def answer_of_post(request):
+    if request.user.is_authenticated: 
+        if request.method=="POST":
+            que_id=request.POST.get('Unique_id_answer')
+            answer_post=request.POST.get('send_ans')
+            print(que_id)
+
+            try:
+                my_post=Draft.objects.get(pk=que_id)
+                print(my_post)
+                print(answer_post)
+            except:
+                print('no post')
+                messages.error(request, 'Error - There was an error while fetching the Question.')
+                return redirect('dashboard')
+            try:
+                review.objects.create(this_draft=my_post,this_user=request.user,reply=answer_post)
+                messages.success(request, 'Answer posted Successfully.')
+                return redirect('dashboard')
+            except:
+                print('unable to answer')
+                messages.error(request, 'Error - There was an error while Answering the Question.')
+                return redirect('dashboard')
+        return redirect('render_answer_post')
+    return render(request,"home/dashboard.html", context={})   
+
+def render_answer_post(request,que_id):
+    if request.user.is_authenticated: 
+        if request.method=="POST":
+            que_id=request.POST.get('Unique_id_answer')
+            answer_post=request.POST.get('send_ans')
+            print(que_id)
+
+            try:
+                my_post=Draft.objects.get(pk=que_id)
+                print(my_post)
+                print(answer_post)
+            except:
+                print('no post')
+                messages.error(request, 'Error - There was an error while fetching the Question.')
+                return redirect('dashboard')
+            try:
+                review.objects.create(this_draft=my_post,this_user=request.user,reply=answer_post)
+                messages.success(request, 'Answer posted Successfully.')
+                return redirect('dashboard')
+            except:
+                print('unable to answer')
+                messages.error(request, 'Error - There was an error while Answering the Question.')
+                return redirect('dashboard')
+        my_post = Draft.objects.filter(pk=que_id)
+        return render(request,"home/answer_post.html", context={"thispost":my_post})   
+    return render(request,"home/dashboard.html", context={})   
+
+def view_full_que(request,que_id):
+    if request.user.is_authenticated: 
+        my_post = Draft.objects.filter(pk=que_id)
+        return render(request,"home/view_fullque.html", context={"thispost":my_post})
+    return render(request,"home/dashboard.html", context={})   

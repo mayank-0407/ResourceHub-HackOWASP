@@ -8,7 +8,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
     <title>add-question-page</title>
-<link rel="stylesheet" type="text/css" href="{% static 'createpost/style.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'answer_post/style.css'%}">
 <!-- Font Awesome -->
 <link
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -71,11 +71,7 @@
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
-    </style>
-
-    
-    <!-- Custom styles for this template -->
-    <!-- <link href="style.css" rel="stylesheet"> -->
+  </style>
   </head>
   <body>
     
@@ -113,15 +109,16 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="#" class="nav-link px-2" style="color: black;"> Problem Page</a></li>
         </ul>
-
+		
         <!-- <form class="col-12 col-lg-6 mb-3 mb-lg-0 me-lg-5">
-          <input type="search" class="form-control" placeholder="Search volunteers..." aria-label="Search">
+			<input type="search" class="form-control" placeholder="Search volunteers..." aria-label="Search">
         </form> -->
-        <ul class="nav col-12 col-lg-auto me-lg mb-2 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-2" style="color: black;"> Home</a></li>
-            <li><a href="#" class="nav-link px-2" style="color: black;"> Subscription</a></li>
-            <li><a href="#" class="nav-link px-2" style="color: black;"> Dashboard</a></li>            
-            <li><a href="#" class="nav-link px-2" style="color: black;"> Volunteer</a></li>            
+        <ul class="nav col-12 col-lg-auto me-lg-2 mb-10 justify-content-center mb-md-0">
+			<li><a href="#" class="nav-link px-2" style="color: black;"> Home</a></li>
+			<li><a href="#" class="nav-link px-2" style="color: black;"> Subscription</a></li>
+			<li><a href="#" class="nav-link px-2" style="color: black;"> Dashboard</a></li>            
+			<li><a href="#" class="nav-link px-2" style="color: black;"> Volunteer</a></li>            
+			<li><a href="#" class="nav-link px-2" style="color: black;"> Problem</a></li>            
 
 
           </ul>
@@ -143,52 +140,46 @@
     </div>
   </header>
   <body>
-      
     <div class="container">
-        <form class="questionaire" action="{% url 'create_post' %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h2>Write your problem</h2>
-            <label for="question-title">Title</label>
-            <input type="text" id="question-title" for="title" name="title" required>
-            
-            <label for="question-tags">Subtitle</label>
-            <input type="text" id="question-tags" for="subtitle" name="subtitle">
-            
-            <label for="question-details">Details</label>
-            <textarea id="question-details" for="description" name="description" required></textarea>
-            
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-</div>
-
-<!-- MDB -->
+		<input type="hidden" name="Unique_id_answer" value="{{my_draft.id}}" readonly> 
+		 	{% for my_post in thispost %}
+				<h2>The question</h2>
+				<input type="hidden" name="Unique_id_answer" value="{{my_post.id}}" readonly> 
+				<label for="question-title">Title:-{{my_post.title}}</label>
+				<br>
+				<label for="question-title">Title:-{{my_post.subtitle}}</label>
+				<br>
+				<label for="question-title">Description:-{{my_post.description}}</label>
+			{% endfor %}
+    </div>  
+  
 <!-- Footer -->
+	<!-- MDB -->
 	<footer class="text-center text-lg-start bg-light text-muted">
 		<!-- Section: Social media -->
 		<section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-            <!-- Left -->
-            <div class="me-5 d-none d-lg-block">
-                <span>Get connected with us on social networks:</span>
-            </div>
-            <!-- Left -->
-            
-            <!-- Right -->
-            <div>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="" class="me-4 text-reset">
-                    <i class="fab fa-google"></i>
+		  <!-- Left -->
+		  <div class="me-5 d-none d-lg-block">
+			<span>Get connected with us on social networks:</span>
+    </div>
+    <!-- Left -->
+	  
+    <!-- Right -->
+		  <div>
+			<a href="" class="me-4 text-reset">
+			  <i class="fab fa-facebook-f"></i>
 			</a>
 			<a href="" class="me-4 text-reset">
-                <i class="fab fa-instagram"></i>
+			  <i class="fab fa-twitter"></i>
 			</a>
 			<a href="" class="me-4 text-reset">
-                <i class="fab fa-linkedin"></i>
+			  <i class="fab fa-google"></i>
+			</a>
+			<a href="" class="me-4 text-reset">
+			  <i class="fab fa-instagram"></i>
+			</a>
+			<a href="" class="me-4 text-reset">
+			  <i class="fab fa-linkedin"></i>
 			</a>
 			<a href="" class="me-4 text-reset">
 			  <i class="fab fa-github"></i>
@@ -197,38 +188,38 @@
 		  <!-- Right -->
 		</section>
 		<!-- Section: Social media -->
-        
+	  
 		<!-- Section: Links  -->
 		<section class="">
 		  <div class="container text-center text-md-start mt-5">
 			<!-- Grid row -->
 			<div class="row mt-3">
-                <!-- Grid column -->
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                    <!-- Content -->
-                    <h6 class="text-uppercase fw-bold mb-4">
-                        <i class="fas fa-gem me-3"></i>Resource Hub
-                    </h6>
-                    <p>
-                        Here you can get soultions to your problems.
-                    </p>
-                </div>
-                <!-- Grid column -->
-                
-                <!-- Grid column -->
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">
-                        Products
-                    </h6>
+			  <!-- Grid column -->
+			  <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+				<!-- Content -->
+				<h6 class="text-uppercase fw-bold mb-4">
+				  <i class="fas fa-gem me-3"></i>Resource Hub
+				</h6>
 				<p>
-                    <a href="#!" class="text-reset">Angular</a>
+				  Here you can get soultions to your problems.
+				</p>
+			  </div>
+			  <!-- Grid column -->
+	  
+			  <!-- Grid column -->
+			  <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+				<!-- Links -->
+				<h6 class="text-uppercase fw-bold mb-4">
+				  Products
+				</h6>
+				<p>
+				  <a href="#!" class="text-reset">Angular</a>
 				</p>
 				<p>
-                    <a href="#!" class="text-reset">React</a>
+				  <a href="#!" class="text-reset">React</a>
 				</p>
 				<p>
-                    <a href="#!" class="text-reset">Vue</a>
+				  <a href="#!" class="text-reset">Vue</a>
 				</p>
 				<p>
 				  <a href="#!" class="text-reset">Laravel</a>
@@ -282,10 +273,6 @@
 		</div>
 		<!-- Copyright -->
 	  </footer>
-<script
-
-type="text/javascript"
-src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
-></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 </body>
 </html>
