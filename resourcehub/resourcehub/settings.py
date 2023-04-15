@@ -133,7 +133,7 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "dev.codebreakers@gmail.com"
-EMAIL_HOST_PASSWORD = "gbjwzrwltcxcwmmc"
+EMAIL_HOST_PASSWORD = "#"
 
 BASE_URL_EMAIL="http://127.0.0.1:8000"
 
