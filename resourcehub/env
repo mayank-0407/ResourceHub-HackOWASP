@@ -1,0 +1,6 @@
+EMAIL_HOST_USER_DOT="mayank.tempdata@gmail.com"
+EMAIL_HOST_PASSWORD_DOT="ugijwcecfgwuhjjk"
+# EMAIL_HOST_USER_DOT="dev.codebreakers@gmail.com"
+# EMAIL_HOST_PASSWORD_DOT="nvmjzbanoynjprmz"
+SECRET_KEY_DOT="django-insecure-yrg4f=v#$42^bu#rba@v&g&8)d2598y2wf9znu_cm^rc8#cnzm"
+BASE_URL_EMAIL="http://127.0.0.1:8000"

@@ -137,6 +137,11 @@
     </div>
   </header>
   <body>
+	{% for message in messages %}
+		<div class="alert alert-secondary container" role="alert">
+		<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+		</div>
+	{% endfor %}
     <div class="container">
 		<form class="questionaire">
 			<input type="hidden" name="Unique_id_answer" value="{{my_draft.id}}" readonly> 

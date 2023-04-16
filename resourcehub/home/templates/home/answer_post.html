@@ -108,7 +108,7 @@
 		  </a>
         
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2" style="color: black;"> Problem Page</a></li>
+          {% comment %} <li><a href="#" class="nav-link px-2" style="color: black;"> Problem Page</a></li> {% endcomment %}
         </ul>
 		
         <!-- <form class="col-12 col-lg-6 mb-3 mb-lg-0 me-lg-5">
@@ -139,7 +139,12 @@
     </div>
   </header>
   <body>
-    <div class="container">
+	  <div class="container">
+		{% for message in messages %}
+			<div class="alert alert-secondary" role="alert">
+				<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+		  	</div>
+		{% endfor %}
       <form class="questionaire" action="{% url 'render_answer_post' que_id=1 %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 		<input type="hidden" name="Unique_id_answer" value="{{my_draft.id}}" readonly> 

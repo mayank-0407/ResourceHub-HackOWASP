@@ -144,3 +144,4 @@ USER_VOLUNTEER_NAME="volunteer"
 BASE_URL_EMAIL=os.environ.get('BASE_URL_EMAIL')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# django-insecure-yrg4f=v#$42^bu#rba@v&g&8)d2598y2wf9znu_cm^rc8#cnzm

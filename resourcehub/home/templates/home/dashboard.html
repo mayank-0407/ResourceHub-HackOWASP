@@ -110,6 +110,11 @@
       </div>
     </div>
   </header>
+  {% for message in messages %}
+    <div class="alert alert-secondary container" role="alert">
+      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      </div>
+  {% endfor %}
   <main class="px-5">
   <div class="row mb-2 mt-10">
     {% for my_draft in drafts %}

@@ -57,11 +57,15 @@
         <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'signout' %}">Logout</a>
         {% else %}
         <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'signin' %}">Signin</a>
-        <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'signin' %}">Signin as Vounteer</a>
         {% endif %}
         <a class="py-2 text-dark text-decoration-none" href="{% url 'tos' %}">Support</a>
       </nav>
     </div>
+    {% for message in messages %}
+      <div class="alert alert-secondary container" role="alert">
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        </div>
+    {% endfor %}
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
       <h1 class="display-4 fw-normal">Pricing Plans</h1>
       <p class="fs-5 text-muted">By subscribing to a paid plan, you will be supporting the maintenance and improvement of our platform, allowing us to better serve the needs of both students and volunteers.
