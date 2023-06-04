@@ -108,7 +108,7 @@
 		  </a>
         
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2" style="color: black;"> Problem Page</a></li>
+          {% comment %} <li><a href="#" class="nav-link px-2" style="color: black;"> Problem Page</a></li> {% endcomment %}
         </ul>
 		
         <!-- <form class="col-12 col-lg-6 mb-3 mb-lg-0 me-lg-5">
@@ -142,17 +142,26 @@
 		<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
 		</div>
 	{% endfor %}
-    <div class="container">
+	<div class="container">
+	<h2 class="mx-1 my-2">The Problem</h2>
+	{% for my_post in thispost %}
+	{% if my_post.thumbnail %}
+	<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+		<div class="carousel-inner">
+		  <div class="carousel-item active">
+			<img src="{{ my_post.thumbnail.url }}" class="d-block w-100" style="height:400px;" alt="...">
+		  </div>
+		</div>
+	  </div>
+	{% endif %}
 		<form class="questionaire">
 			<input type="hidden" name="Unique_id_answer" value="{{my_draft.id}}" readonly> 
-			{% for my_post in thispost %}
-				<h2>The Problem</h2>
 				<input type="hidden" name="Unique_id_answer" value="{{my_post.id}}" readonly> 
-				<label for="question-title">Title:-{{my_post.title}}</label>
+				<label for="question-title">Title:-  {{my_post.title}}</label>
 				<br>
-				<label for="question-title">Title:-{{my_post.subtitle}}</label>
+				<label for="question-title">Sub Title:-  {{my_post.subtitle}}</label>
 				<br>
-				<label for="question-title">Description:-{{my_post.description}}</label>
+				<label for="question-title">Description:-  {{my_post.description}}</label>
 			{% endfor %}
 		</form>
 		<h2 class="mx-1 my-2">Solution For this Problem</h2>
@@ -236,6 +245,9 @@
 			<p>
 			  <a href="{% url 'view_profile' %}" class="text-reset">Settings</a>
 			</p>
+			<p>
+				<a href="{% url 'contact' %}" class="text-reset">Contact-Us</a>
+			  </p>
 			<p>
 			  <a href="https://resourcehubcomm.netlify.app/" class="text-reset">Help</a>
 			</p>

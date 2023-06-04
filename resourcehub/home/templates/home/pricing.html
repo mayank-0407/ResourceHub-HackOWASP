@@ -107,7 +107,7 @@
               <li>Detailed volunteer profiles with skills and activity history</li>
               <!-- <li>Help center access</li> -->
             </ul>
-            <a href="{% url 'signup' %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Get started</button></a>
+            <a href="{% url 'checkout' %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Get started</button></a>
           </div>
         </div>
       </div>
@@ -125,7 +125,7 @@
               <li>Premium customer support
               </li>
             </ul>
-            <a href="{% url 'signup' %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Get Premium</button></a>
+            <a href="{% url 'checkout' %}"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Get Premium</button></a>
           </div>
         </div>
       </div>
@@ -201,6 +201,9 @@
       </p>
       <p>
         <a href="{% url 'view_profile' %}" class="text-reset">Settings</a>
+      </p>
+      <p>
+        <a href="{% url 'contact' %}" class="text-reset">Contact-Us</a>
       </p>
       <p>
         <a href="https://resourcehubcomm.netlify.app/" class="text-reset">Help</a>

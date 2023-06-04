@@ -33,6 +33,7 @@ class Customer(models.Model):
     skills=models.CharField(max_length=100,null=True,blank=True)
     experience=models.CharField(max_length=200,null=True,blank=True)
     otp_code=models.CharField(max_length=100,null=True)
+    pic = models.FileField(upload_to="Profiles/", blank=True)
 
     def __str__(self):
         return self.user.username
@@ -45,6 +46,7 @@ class Draft(models.Model):
     description=models.TextField(max_length=80000,null=True,blank=True)
     pub_date=models.DateField(null=True,blank=True)
     published=models.BooleanField(default=False,null=True,blank=True)
+    thumbnail = models.FileField(upload_to="Drafts", blank=True)
 
     def __str__(self):
         return str(self.title)+str('--')+str(self.pub_date)

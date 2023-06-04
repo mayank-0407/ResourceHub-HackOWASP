@@ -144,6 +144,7 @@
 			<input type="search" class="form-control" placeholder="Search volunteers..." aria-label="Search">
 		</form> -->
 		<ul class="nav col-12 col-lg-auto me-lg-2 mb-10 justify-content-center mb-md-0">
+			  <li><a href="https://resourcehubcomm.netlify.app/" class="nav-link px-2" style="color: black;"> Community Classroom</a></li>
 			  <li><a href="{% url 'dashboard' %}" class="nav-link px-2" style="color: black;"> Dashboard</a></li>
             <li><a href="{% url 'pricing' %}" class="nav-link px-2" style="color: black;"> Subscription</a></li>        
 			{% comment %} <li><a href="{% url 'view_volunteer_profiles' %}" class="nav-link px-2" style="color: black;"> Volunteer</a></li>        {% endcomment %}
@@ -164,9 +165,6 @@
 		</div>
 	  </div>
 	</header>
-  <!-- Footer -->
-
-  <!-- Footer -->
 <body>
 	{% for message in messages %}
 		<div class="alert alert-secondary container" role="alert">
@@ -177,7 +175,11 @@
         <div class="cardsLayout">
             <div class="card-container">
                 <div class="card align-items-center ">
-                    <img class="card-image "src="https://bootdey.com/img/Content/avatar/avatar6.png">
+					{% if all_volunteers.pic %}
+						<img class="card-image "src="{{ all_volunteers.pic.url }}">
+					{% else %}
+						<img class="card-image "src="https://bootdey.com/img/Content/avatar/avatar6.png">
+					{% endif %}
                     <h2>{{ all_volunteers.full_name }}</h2>
                     <p class="designation">Skills:-  {{ all_volunteers.skills }}</p>
                     <p class="designation">Experience:-  {{ all_volunteers.experience }}</p>
@@ -192,7 +194,7 @@
         </div>
     {% endfor %}
 		
-	<!-- MDB -->
+	<!-- footer -->
 	<footer class="text-center text-lg-start bg-light text-muted">
 		<!-- Section: Social media -->
 		<section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
@@ -258,6 +260,9 @@
 			<p>
 			  <a href="{% url 'view_profile' %}" class="text-reset">Settings</a>
 			</p>
+			<p>
+				<a href="{% url 'contact' %}" class="text-reset">Contact-Us</a>
+			  </p>
 			<p>
 			  <a href="https://resourcehubcomm.netlify.app/" class="text-reset">Help</a>
 			</p>

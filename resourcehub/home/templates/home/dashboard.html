@@ -91,13 +91,19 @@
 			    <li><a href="{% url 'view_volunteer_profiles' %}" class="nav-link px-2" style="color: black;"> Volunteer</a></li>    
         </ul>
 
-        <form class="col-12 col-lg-6 mb-3 mb-lg-0 me-lg-5">
-          <input type="search" class="form-control" placeholder="Search Problems..." aria-label="Search">
+        <form class="col-12 col-lg-6 mb-3 mb-lg-0 me-lg-5" method="get" action="{% url 'search' %}">
+          <input type="search" class="form-control" name="query" placeholder="Search Problems..." aria-label="Search">
         </form>
 
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img class="mb-2" src="{% static 'logo/signin.png' %}" alt="resourcehub" width="32" height="32" class="rounded-circle">
+            {% for my_customer in permission %}
+              {% if my_customer.pic %}
+                <img class="mb-2" src="{{ my_customer.pic.url }}" alt="resourcehub" width="32" height="32" class="rounded-circle">
+              {% else %}
+                <img class="mb-2" src="{% static 'logo/signin.png' %}" alt="resourcehub" width="32" height="32" class="rounded-circle">
+              {% endif %}
+            {% endfor %}
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="{% url 'dashboard' %}">All Problems</a></li>
@@ -116,29 +122,59 @@
       </div>
   {% endfor %}
   <main class="px-5">
-  <div class="row mb-2 mt-10">
-    {% for my_draft in drafts %}
-      <div class="col-md-6">
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-          <div class="col p-4 d-flex flex-column position-static">
-            {% comment %} <strong class="d-inline-block mb-2 text-primary">{{my_daft.subtitle}}</strong> {% endcomment %}
-            <a href="{% url 'view_full_que' que_id=my_draft.id %}" style:"decoration:none"><h3 class="mb-0">{{my_draft.title}}</h3></a>
-            <div class="mb-1 text-muted">{{my_draft.pub_date}}</div>
-            <p class="card-text mb-auto text-wrap">{{my_draft.subtitle}}</p>
-            {% for my_customer in permission %}          
-              {% if my_customer.user_Type.code == 131 %}
-                <div class="Answer_card">
-                  <a href="{% url 'render_answer_post' que_id=my_draft.id %}"><button class="btn btn-primary" type="button">Answer Question</button></a>
-                </div>        
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="row mb-2 mt-10">
+            {% for my_draft in drafts %}
+            <div class="col-md-6">
+              {% if my_draft.thumbnail %}
+                <img src="{{my_draft.thumbnail.url}}" class="card-img-top h-md-250" alt="...">
               {% endif %}
-            {% endfor %}    
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                  <div class="col p-4 d-flex flex-column position-static">
+                    {% comment %} <strong class="d-inline-block mb-2 text-primary">{{my_daft.subtitle}}</strong> {% endcomment %}
+                    <a href="{% url 'view_full_que' que_id=my_draft.id %}" style:"decoration:none"><h3 class="mb-0">{{my_draft.title}}</h3></a>
+                    <div class="mb-1 text-muted">{{my_draft.pub_date}}</div>
+                    <p class="card-text mb-auto text-wrap">{{my_draft.subtitle}}</p>
+                    {% for my_customer in permission %}          
+                      {% if my_customer.user_Type.code == 131 %}
+                        <div class="Answer_card">
+                          <a href="{% url 'render_answer_post' que_id=my_draft.id %}"><button class="btn btn-primary" type="button">Answer Question</button></a>
+                        </div>        
+                      {% endif %}
+                    {% endfor %}    
+                  </div>              
+                </div>
+              </div>
+            {% endfor %}
           </div>
-          
+        </div>
+        <div class="col col-lg-3">  <!--add profiles-->
+          <p class="fs-3 text-center fw-bolder">All Volunteers</p>
+          {% for show_profile in all_profiles %}    
+            <div class="card mb-4 text-center">
+              <div class="card-body">
+                <div class="mt-3 mb-4">
+                  {% if show_profile.pic %}
+                    <img src="{{ show_profile.pic.url }}" class="rounded-circle img-fluid" style="width: 100px;" />
+                  {% else %}
+                    <img src="{% static 'logo/signin.png' %}" class="rounded-circle img-fluid" style="width: 100px;" />
+                  {% endif %}
+                </div>
+                <h5 class="card-title">{{ show_profile.full_name }}</h5>
+                <p class="card-text">
+                  <p class="designation"><b>Skills:-</b>  {{ show_profile.skills }}</p>
+                  <p class="designation"><b>Experience:-</b>  {{ show_profile.experience }}</p>
+                </p>
+                <a class="btn btn-primary" href="mailto:{{all_volunteers.temp_email}}"><i class="fa fa-envelope"></i></a>
+              </div>
+            </div>
+          {% endfor %}   
         </div>
       </div>
-    {% endfor %}
-  </div>
-</main>
+    </div>
+  </main>
 <!--  footer-->
 <footer class="text-center text-lg-start bg-light text-muted">
   <!-- Section: Social media -->
@@ -204,6 +240,9 @@
       </p>
       <p>
         <a href="{% url 'view_profile' %}" class="text-reset">Settings</a>
+      </p>
+      <p>
+        <a href="{% url 'contact' %}" class="text-reset">Contact-Us</a>
       </p>
       <p>
         <a href="https://resourcehubcomm.netlify.app/" class="text-reset">Help</a>

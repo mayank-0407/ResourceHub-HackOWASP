@@ -18,16 +18,23 @@
         <div class="my-4">
             <div class="row mt-5 align-items-center">
                 <div class="col-md-3 text-center mb-5">
+                    {% for my_user in this_user %}
+                    <form action="{% url 'view_profile' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
                     <div class="avatar avatar-xl">
+                        {% if my_user.pic %}
+                        <img src="{{ my_user.pic.url }}" alt="..." class="avatar-img rounded-circle" />
+                        {% else %}
                         <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="..." class="avatar-img rounded-circle" />
+                        {% endif %}
                     </div>
                 </div>
-                {% for my_user in this_user %}
                 <div class="col">
                     <div class="row align-items-center">
                         <div class="col-md-7">
                             <h4 class="mb-1">{{my_user.full_name}}</h4>
                         </div>
+                        
                     </div>
                     <div class="row mb-4">
                         <div class="col-md-7">
@@ -41,6 +48,10 @@
                     </div>
                     </div>
                 </div>
+                <div>
+                    <label for="files" class="btn btn-primary">change Profile Pic</label>
+                    <input id="files" style="visibility:hidden;" name="pic" type="file">
+                </div>
                 <hr class="my-4" />
                 {% for message in messages %}
                     <div class="alert alert-secondary container" role="alert">
@@ -49,10 +60,9 @@
                 {% endfor %}
                 <div class="form-row">
                     <div class="form-group col-md-6">
-        <form action="{% url 'view_profile' %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
                         <label for="full_name">Fullname</label>
                         <input type="text" id="firstname" name="full_name" for="full_name" value={{my_user.full_name}} class="form-control" placeholder="Brown" />
+                        
                     </div>
                 </div>
                 <div class="form-group">

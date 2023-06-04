@@ -156,7 +156,13 @@
             
             <label for="question-details">Details</label>
             <textarea id="question-details" for="description" name="description" required></textarea>
-            
+            <input type="file" class="" placeholder="Upload Thumbnail" name="thumbnail" >
+            {% comment %} <div>
+              <label for="files" class="btn btn-primary">Upload Thumbnail</label>
+              <input id="files" style="visibility:hidden;" name="thumbnail" type="file">
+            </div> {% endcomment %}
+            <br>
+            <br>
             <button type="submit">Submit</button>
         </form>
     </div>
@@ -228,6 +234,9 @@
       </p>
       <p>
         <a href="{% url 'view_profile' %}" class="text-reset">Settings</a>
+      </p>
+      <p>
+        <a href="{% url 'contact' %}" class="text-reset">Contact-Us</a>
       </p>
       <p>
         <a href="https://resourcehubcomm.netlify.app/" class="text-reset">Help</a>

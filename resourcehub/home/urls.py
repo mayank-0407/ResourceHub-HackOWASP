@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.home,name="home"),
     path('temp/', views.temp,name="temp"),
     path('tos/', views.tos,name="tos"),
+    path('contact-us/', views.contact,name="contact"),
     path('dashboard/pricing/', views.pricing,name="pricing"),
     path('dashboard/', views.dashboard,name="dashboard"),
     path('admin/', views.my_admin,name="admin"),
@@ -21,4 +22,6 @@ urlpatterns = [
     path('dashboard/view_fullque/<str:que_id>', views.view_full_que,name="view_full_que"),
     path('dashboard/volunteer/profiles', views.view_volunteers,name="view_volunteer_profiles"),
     path('dashboard/profile', views.view_profile,name="view_profile"),
+    path('dashboard/results', views.search,name="search"),
+    path('dashboard/pricing/checkout', views.checkout,name="checkout"),
 ]

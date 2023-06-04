@@ -1,4 +1,5 @@
 {% load static %}
+{% load  socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,14 +118,14 @@
                   </div>
   
                   <!-- Register buttons -->
-                  {% comment %} <div class="text-center">
+                  <div class="text-center">
                     <p>or sign up with:</p>
                     <button type="button" class="btn btn-link btn-floating mx-1">
                       <i class="fab fa-facebook-f"></i>
                     </button>
   
                     <button type="button" class="btn btn-link btn-floating mx-1">
-                      <i class="fab fa-google"></i>
+                      <a href="{% provider_login_url 'google' %}"><i class="fab fa-google"></i></a>
                     </button>
   
                     <button type="button" class="btn btn-link btn-floating mx-1">
@@ -133,7 +134,7 @@
   
                     <button type="button" class="btn btn-link btn-floating mx-1">
                       <i class="fab fa-github"></i>
-                    </button> {% endcomment %}
+                    </button>
                   </div>
                 </form>
               </div>
@@ -215,6 +216,9 @@
       </p>
       <p>
         <a href="{% url 'view_profile' %}" class="text-reset">Settings</a>
+      </p>
+      <p>
+        <a href="{% url 'contact' %}" class="text-reset">Contact-Us</a>
       </p>
       <p>
         <a href="https://resourcehubcomm.netlify.app/" class="text-reset">Help</a>
